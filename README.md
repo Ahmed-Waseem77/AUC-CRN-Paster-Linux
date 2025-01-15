@@ -7,7 +7,7 @@
 
 `.bashrc`
 
-```
+```bash
 export CRN_PASTER_PATH="<your path here>"
 ```
 
@@ -19,14 +19,14 @@ export CRN_PASTER_PATH="<your path here>"
 
 1. Clone the repo
 
-```
-git clone
-cd CRN\ Paster
+```bash
+git clone https://github.com/Ahmed-Waseem77/AUC-CRN-Paster-Linux.git
+cd AUC-CRN-Paster-Linux
 ```
 
 2. Compile the source
 
-```
+```bash
 make
 ```
 
@@ -34,7 +34,9 @@ make
 
 Just compile it like a cpp file
 
-`g++ CRN-paster.cpp -o crn-paster`
+```bash
+g++ CRN-paster.cpp -o crn-paster
+```
 and run it
 
 ### Issues
