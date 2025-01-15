@@ -1,4 +1,7 @@
 #include <cctype>
+#include <cstdlib>
+#include <thread>
+#include <chrono>
 #include <cstdio>
 #include <cstring>
 #include <fcntl.h>
@@ -86,15 +89,17 @@ setup_pair get_numeric_setup() {
   usetupPair.usetup = usetup;
   usetupPair.fd = fd;
 
-  // sleep is needed here to allolw the kernel to create a device node for our
+  // sleep is needed here to allow the kernel to create a device node for our
   // virtual keyboard
   // TODO: someway to detect this kernel event instead of sleeping
-  sleep(1);
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
   return usetupPair;
 }
 
 void crn_actions() {
-  std::ifstream crnFile("./CRNs");
+  const char * configPath = std::getenv("CRN_PASTER_PATH");
+  std::cout << "Reading from Path: " << configPath << std::endl;
+  std::ifstream crnFile(configPath);
   std::string line;
 
   struct setup_pair usetupPair = get_numeric_setup();
@@ -114,6 +119,8 @@ void crn_actions() {
   sleep(1);
   ioctl(usetupPair.fd, UI_DEV_DESTROY);
   close(usetupPair.fd);
+
+  crnFile.close();
 }
 
 int main(void) {
